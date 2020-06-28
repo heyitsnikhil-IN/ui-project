@@ -26,8 +26,11 @@
 					<div class="alert alert-primary" role="alert">
 						<h1>Spring Boot Application</h1>
 						<h2>Hosted On GCP</h2>
-						<h2>@Author Nikhil Gupta</h2>
-						
+						<h2>@Author Nikhil Gupta</h2></br>
+						<button onclick="callAWSLambda()">Call AWS Lambda</button>
+						</br>	</br>	
+						<div id="info" class="alert alert-info" style="display: none;" role="alert">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -43,5 +46,21 @@
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+		<script type="text/javascript">
+		function callAWSLambda(){
+			var request = new XMLHttpRequest()
+			request.open('GET', '/getData', true);
+			request.onload = function () {
+				var data = JSON.parse(this.response)
+				console.log(data);
+				var x = document.getElementById("info");
+				if (x.style.display === "none") {
+				    x.style.display = "block";
+				}
+				x.innerHTML = JSON.stringify(data);
+			}
+			request.send()
+		}
+	</script>
 </body>
 </html>
